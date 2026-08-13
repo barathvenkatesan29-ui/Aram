@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { LegalInformationNotice } from "@/components/LegalInformationNotice";
 
 export default function Home() {
@@ -17,14 +18,14 @@ export default function Home() {
           next step — without pretending to be your lawyer.
         </p>
         <div className="flex flex-col items-start gap-3">
-          <a
-            href="#coming-next"
+          <Link
+            href="/start"
             className="inline-flex h-12 items-center justify-center rounded-full bg-teal-800 px-6 text-base font-medium text-white hover:bg-teal-900"
           >
             Describe what happened
-          </a>
+          </Link>
           <p className="text-sm text-stone-500">
-            This step is not open yet. Nothing you click here is saved.
+            This opens the first step. Later steps are not built yet.
           </p>
         </div>
       </section>
@@ -65,20 +66,6 @@ export default function Home() {
           <li>Aram does not file complaints or court papers for you</li>
           <li>Aram does not replace a qualified legal professional</li>
         </ul>
-      </section>
-
-      <section
-        id="coming-next"
-        className="scroll-mt-8 rounded-xl border border-stone-200 bg-white px-5 py-6"
-      >
-        <h2 className="text-xl font-semibold text-stone-900">
-          Describe what happened
-        </h2>
-        <p className="mt-3 leading-7 text-stone-600">
-          Soon you will be able to start here by describing what happened in
-          your own words. That step is not open yet. This page does not collect
-          any information.
-        </p>
       </section>
     </main>
   );

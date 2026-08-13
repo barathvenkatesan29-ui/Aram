@@ -25,9 +25,15 @@ export default function PrivacyPage() {
           This version of the website
         </h2>
         <p className="leading-7 text-stone-600">
-          This first version does not create accounts and does not include a
-          form for your legal problem. It does not collect, save, transmit, or
-          process personal information. There is no analytics on these pages.
+          This version does not create accounts. You can type a case description
+          when you start a case. Aram does not send or store your case
+          description in this phase. There is no analytics on these pages.
+          Opening a page still makes an ordinary request to load the website.
+        </p>
+        <p className="leading-7 text-stone-600">
+          Your browser, keyboard, operating system, or installed writing tools
+          can still process text you type. That happens outside Aram&apos;s
+          control.
         </p>
       </section>
 

@@ -76,8 +76,10 @@ export default function HowItWorksPage() {
           What this version does not do
         </h2>
         <p className="leading-7 text-stone-600">
-          This first version of the website is information only. You cannot
-          start a case here yet. Aram does not yet collect your story, create an
+          You can begin with the first step: describe what happened in your own
+          words. Later steps — organising facts, follow-up questions, legal
+          research, and saved cases — are not open yet. Aram does not send or
+          store your case description in this phase. Aram does not yet create an
           account, file anything on your behalf, prepare court documents, or act
           through software agents.
         </p>
