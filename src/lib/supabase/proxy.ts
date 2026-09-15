@@ -35,8 +35,28 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  // Refresh the session before the app renders. Do not add route logic here.
-  await supabase.auth.getClaims();
+  // Refresh the session before the app renders. Do not add logic between
+  // createServerClient and getClaims().
+  const { data } = await supabase.auth.getClaims();
+  const isSignedIn = Boolean(data?.claims);
+  const pathname = request.nextUrl.pathname;
+  const isStartRoute =
+    pathname === "/start" || pathname.startsWith("/start/");
+
+  if (!isSignedIn && isStartRoute) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/sign-in";
+    url.search = "";
+    url.searchParams.set("next", "/start");
+
+    const redirectResponse = NextResponse.redirect(url);
+
+    supabaseResponse.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie);
+    });
+
+    return redirectResponse;
+  }
 
   return supabaseResponse;
 }

@@ -57,10 +57,10 @@ export default function TermsPage() {
       <section className="flex flex-col gap-3">
         <h2 className="text-xl font-semibold text-stone-900">This version of the site</h2>
         <p className="leading-7 text-stone-600">
-          You can describe what happened as the first step of a case. You cannot
-          submit a case for analysis or create an account yet. Aram does not
-          send or store your case description in this phase. Using this website
-          does not create any duty for Aram to act on your behalf.
+          You can sign in with an email link and describe what happened as the
+          first step of a case. You cannot submit a case for analysis yet. Aram
+          does not send or store your case description in this phase. Using this
+          website does not create any duty for Aram to act on your behalf.
         </p>
       </section>
     </main>

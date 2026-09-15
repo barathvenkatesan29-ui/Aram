@@ -25,10 +25,15 @@ export default function PrivacyPage() {
           This version of the website
         </h2>
         <p className="leading-7 text-stone-600">
-          This version does not create accounts. You can type a case description
-          when you start a case. Aram does not send or store your case
-          description in this phase. There is no analytics on these pages.
-          Opening a page still makes an ordinary request to load the website.
+          You can sign in with an email link. That creates an account and stores
+          your email with the sign-in service Aram uses. Aram keeps you signed
+          in with session cookies on this device.
+        </p>
+        <p className="leading-7 text-stone-600">
+          After you sign in, you can type a case description. Aram does not send
+          or store your case description in this phase. There is no analytics on
+          these pages. Opening a page still makes an ordinary request to load
+          the website.
         </p>
         <p className="leading-7 text-stone-600">
           Your browser, keyboard, operating system, or installed writing tools
@@ -42,10 +47,10 @@ export default function PrivacyPage() {
           What later versions intend to collect
         </h2>
         <p className="leading-7 text-stone-600">
-          When accounts and cases are added, Aram expects to collect only what
-          is needed to provide the service. That is likely to include an email
-          address for signing in, and the description and answers you choose to
-          type about a case.
+          Later versions expect to store cases as well as the email address
+          already used to sign in. Aram will collect only what is needed to
+          provide the service, including the description and answers you choose
+          to type about a case.
         </p>
         <p className="leading-7 text-stone-600">
           Case information will be treated as private to you. Another user
