@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { LegalInformationNotice } from "@/components/LegalInformationNotice";
+import { CaseDetailForm } from "@/features/cases/CaseDetailForm";
 import { formatCaseLabel } from "@/features/cases/formatCaseLabel";
 import { getCase } from "@/features/cases/getCase";
 import { parseCaseId } from "@/features/cases/parseCaseId";
@@ -48,22 +49,25 @@ export default async function CasePage({
           </h1>
           <p className="leading-7 text-stone-600">
             This description is saved with your account. Only you can see it.
-            Later steps are not open yet. It was not analysed.
+            You can change it or permanently delete it. Later steps are not
+            open yet. It was not analysed.
           </p>
         </header>
 
         <LegalInformationNotice />
 
-        <section className="flex flex-col gap-2">
-          <h2 className="text-base font-semibold text-stone-900">
-            Your description
-          </h2>
-          <p className="whitespace-pre-wrap rounded-xl border border-stone-200 bg-white px-4 py-3 text-base leading-7 text-stone-900">
-            {savedCase.description}
-          </p>
-        </section>
+        <CaseDetailForm
+          caseId={savedCase.id}
+          description={savedCase.description}
+        />
 
-        <p>
+        <p className="flex flex-wrap gap-x-5 gap-y-2">
+          <Link
+            href="/cases"
+            className="text-sm font-medium text-teal-800 hover:text-teal-900"
+          >
+            Your cases
+          </Link>
           <Link
             href="/start"
             className="text-sm font-medium text-teal-800 hover:text-teal-900"

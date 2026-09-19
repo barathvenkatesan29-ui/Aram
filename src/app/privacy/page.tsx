@@ -31,10 +31,11 @@ export default function PrivacyPage() {
         </p>
         <p className="leading-7 text-stone-600">
           After you sign in, you can type a case description and save it. Aram
-          stores that description with your account. Only you can see it. There
-          is no analytics on these pages. Opening a page still makes an ordinary
-          request to load the website. Case text does not appear in page
-          addresses.
+          stores that description with your account. Only you can see it. You
+          can delete a saved case. Deletion removes it. It cannot be restored.
+          There is no analytics on these pages. Opening a page still makes an
+          ordinary request to load the website. Case text does not appear in
+          page addresses.
         </p>
         <p className="leading-7 text-stone-600">
           Your browser, keyboard, operating system, or installed writing tools

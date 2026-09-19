@@ -7,12 +7,20 @@ export default function CaseNotFound() {
         <h1 className="text-3xl font-semibold tracking-tight text-stone-900">
           This case is not available.
         </h1>
-        <Link
-          href="/start"
-          className="text-sm font-medium text-teal-800 hover:text-teal-900"
-        >
-          Describe another situation
-        </Link>
+        <p className="flex flex-wrap gap-x-5 gap-y-2">
+          <Link
+            href="/cases"
+            className="text-sm font-medium text-teal-800 hover:text-teal-900"
+          >
+            Your cases
+          </Link>
+          <Link
+            href="/start"
+            className="text-sm font-medium text-teal-800 hover:text-teal-900"
+          >
+            Describe another situation
+          </Link>
+        </p>
       </div>
     </main>
   );

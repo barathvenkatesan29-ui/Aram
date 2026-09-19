@@ -32,7 +32,7 @@ const steps = [
   },
   {
     title: "You can come back to your cases",
-    body: "Later, you will be able to view and track the cases you have started.",
+    body: "You can open the cases you have saved, change a description, or delete one. Tracking a case later is not open yet.",
   },
 ];
 
@@ -78,10 +78,11 @@ export default function HowItWorksPage() {
         <p className="leading-7 text-stone-600">
           You can sign in with an email link, which creates an account, and
           describe what happened in your own words. Saving stores that
-          description with your account. Later steps — organising facts,
-          follow-up questions, legal research, and a list of your cases — are
-          not open yet. Aram does not file anything on your behalf, prepare
-          court documents, or act through software agents.
+          description with your account. You can open your saved cases, change
+          a description, or delete one. Later steps — organising facts,
+          follow-up questions, and legal research — are not open yet. Aram does
+          not file anything on your behalf, prepare court documents, or act
+          through software agents.
         </p>
       </section>
     </main>

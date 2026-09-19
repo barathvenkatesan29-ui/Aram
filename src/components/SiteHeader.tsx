@@ -53,6 +53,12 @@ export async function SiteHeader() {
                   "Signed in"
                 )}
               </p>
+              <Link
+                href="/cases"
+                className="text-sm font-medium text-stone-600 hover:text-stone-900"
+              >
+                Cases
+              </Link>
               <form action={signOut}>
                 <button
                   type="submit"

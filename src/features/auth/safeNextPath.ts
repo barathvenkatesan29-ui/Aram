@@ -30,6 +30,10 @@ export function getSafeNextPath(value: string | string[] | undefined): string {
     return DEFAULT_NEXT_PATH;
   }
 
+  if (decodedValue === "/cases") {
+    return "/cases";
+  }
+
   if (CASE_NEXT_PATH_PATTERN.test(decodedValue)) {
     return `/cases/${decodedValue.slice("/cases/".length).toLowerCase()}`;
   }

@@ -7,10 +7,18 @@ function getProtectedNextPath(pathname: string): string | null {
     return "/start";
   }
 
+  if (pathname === "/cases" || pathname === "/cases/") {
+    return "/cases";
+  }
+
   const caseId = getCaseIdFromPathname(pathname);
 
   if (caseId) {
     return `/cases/${caseId}`;
+  }
+
+  if (pathname.startsWith("/cases/")) {
+    return "/cases";
   }
 
   return null;
