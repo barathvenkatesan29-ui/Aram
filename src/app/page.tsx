@@ -13,9 +13,11 @@ export default function Home() {
         </h1>
         <p className="max-w-2xl text-lg leading-8 text-stone-600">
           Aram is a legal information and resolution platform. You describe what
-          happened in ordinary language. Aram helps you see the important facts,
-          possible rights under Indian law, legal boundaries, and a cautious
-          next step — without pretending to be your lawyer.
+          happened in ordinary language. This version lets you save that
+          description and come back to it. Later versions are meant to help you
+          see the important facts, possible rights under Indian law, legal
+          boundaries, and a cautious next step — without pretending to be your
+          lawyer.
         </p>
         <div className="flex flex-col items-start gap-3">
           <Link
@@ -37,8 +39,8 @@ export default function Home() {
         <p className="leading-7 text-stone-600">
           People face many kinds of legal situations in India — at home, at
           work, with a purchase, with a landlord, with an institution, or in
-          other parts of daily life. Aram helps you understand what appears to
-          have happened and what a safer next step may be.
+          other parts of daily life. Aram is being built to help you understand
+          what appears to have happened and what a safer next step may be.
         </p>
         <p className="leading-7 text-stone-600">
           That can include situations involving purchases, work, housing,
@@ -47,14 +49,24 @@ export default function Home() {
       </section>
 
       <section className="flex flex-col gap-4">
-        <h2 className="text-xl font-semibold text-stone-900">What Aram will help you do</h2>
+        <h2 className="text-xl font-semibold text-stone-900">
+          What this version does
+        </h2>
         <ul className="list-disc space-y-2 pl-5 leading-7 text-stone-600">
           <li>Describe a problem in your own words</li>
+          <li>Return later and look at your cases</li>
+        </ul>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="text-xl font-semibold text-stone-900">
+          What later versions are meant to help you do
+        </h2>
+        <ul className="list-disc space-y-2 pl-5 leading-7 text-stone-600">
           <li>See the important facts, and what is still missing</li>
           <li>Understand who appears to be involved</li>
           <li>Learn possible rights and legal boundaries</li>
           <li>Read a cautious recommended path toward resolution</li>
-          <li>Return later and look at your cases</li>
         </ul>
       </section>
 

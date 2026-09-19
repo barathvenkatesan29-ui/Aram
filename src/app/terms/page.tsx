@@ -57,10 +57,22 @@ export default function TermsPage() {
       <section className="flex flex-col gap-3">
         <h2 className="text-xl font-semibold text-stone-900">This version of the site</h2>
         <p className="leading-7 text-stone-600">
-          You can sign in with an email link and describe what happened as the
-          first step of a case. When you save, Aram stores that description with
-          your account. You cannot submit a case for analysis yet. Using this
-          website does not create any duty for Aram to act on your behalf.
+          You can sign in with an email link. That creates an account. Aram
+          asks only for your email address to create and sign in to your
+          account. The sign-in service also stores technical account and session
+          information needed to operate authentication.
+        </p>
+        <p className="leading-7 text-stone-600">
+          You can describe what happened as the first step of a case. When you
+          save, Aram stores that description with your account. You may change
+          it or delete it. Other Aram users cannot see your saved cases. Your
+          case is available only through your signed-in account, while
+          Aram&apos;s infrastructure providers may technically process or access
+          stored data as part of providing the service.
+        </p>
+        <p className="leading-7 text-stone-600">
+          You cannot submit a case for analysis yet. Using this website does
+          not create any duty for Aram to act, file, or represent you.
         </p>
       </section>
     </main>

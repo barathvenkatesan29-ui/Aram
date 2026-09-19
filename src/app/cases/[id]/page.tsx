@@ -48,9 +48,10 @@ export default async function CasePage({
             {formatCaseLabel(savedCase.created_at)}
           </h1>
           <p className="leading-7 text-stone-600">
-            This description is saved with your account. Only you can see it.
-            You can change it or permanently delete it. Later steps are not
-            open yet. It was not analysed.
+            This description is saved with your account. Other Aram users cannot
+            see it. It is available only through your signed-in account. You can
+            change it or permanently delete it. Later steps are not open yet. It
+            was not analysed.
           </p>
         </header>
 

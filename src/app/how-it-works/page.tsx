@@ -5,11 +5,7 @@ export const metadata: Metadata = {
   title: "How it works",
 };
 
-const steps = [
-  {
-    title: "You explain what happened",
-    body: "You describe a legal problem in ordinary language. You do not need legal wording.",
-  },
+const laterSteps = [
   {
     title: "Aram organises the facts",
     body: "Aram picks out the important facts, the people involved, and what information is still missing.",
@@ -30,10 +26,6 @@ const steps = [
     title: "Aram explains a safer next step",
     body: "Aram outlines possible rights, legal boundaries, and a cautious path toward resolution. It does not promise a result.",
   },
-  {
-    title: "You can come back to your cases",
-    body: "You can open the cases you have saved, change a description, or delete one. Tracking a case later is not open yet.",
-  },
 ];
 
 export default function HowItWorksPage() {
@@ -52,38 +44,61 @@ export default function HowItWorksPage() {
 
       <LegalInformationNotice />
 
-      <ol className="flex flex-col gap-6">
-        {steps.map((step, index) => (
-          <li key={step.title} className="flex gap-4">
-            <span
-              className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal-800 text-sm font-medium text-white"
-              aria-hidden="true"
-            >
-              {index + 1}
-            </span>
-            <div className="flex flex-col gap-1">
-              <h2 className="text-lg font-semibold text-stone-900">
-                {step.title}
-              </h2>
-              <p className="leading-7 text-stone-600">{step.body}</p>
-            </div>
-          </li>
-        ))}
-      </ol>
+      <section className="flex flex-col gap-3">
+        <h2 className="text-xl font-semibold text-stone-900">
+          What this version does
+        </h2>
+        <p className="leading-7 text-stone-600">
+          You can sign in with an email link. Aram asks only for your email
+          address to create and sign in to your account. You can describe what
+          happened in your own words, save that description, return to your
+          cases, change a description, or permanently delete one. Other Aram
+          users cannot see those saved cases. A case is available only through
+          your signed-in account.
+        </p>
+      </section>
 
       <section className="flex flex-col gap-3">
         <h2 className="text-xl font-semibold text-stone-900">
-          What this version does not do
+          What this version does not do yet
         </h2>
         <p className="leading-7 text-stone-600">
-          You can sign in with an email link, which creates an account, and
-          describe what happened in your own words. Saving stores that
-          description with your account. You can open your saved cases, change
-          a description, or delete one. Later steps — organising facts,
-          follow-up questions, and legal research — are not open yet. Aram does
+          Organising facts, follow-up questions, official legal research, a
+          recommended path, and tracking outcomes are not open yet. Aram does
           not file anything on your behalf, prepare court documents, or act
           through software agents.
         </p>
+      </section>
+
+      <section className="flex flex-col gap-6">
+        <div className="flex flex-col gap-3">
+          <h2 className="text-xl font-semibold text-stone-900">
+            What Aram is being built toward
+          </h2>
+          <p className="leading-7 text-stone-600">
+            These later steps are not open yet. They describe the path Aram is
+            being built toward. They do not describe what this version already
+            does.
+          </p>
+        </div>
+        <ol className="flex flex-col gap-6">
+          {laterSteps.map((step, index) => (
+            <li key={step.title} className="flex gap-4">
+              <span
+                className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-teal-800 text-sm font-medium text-white"
+                aria-hidden="true"
+              >
+                {index + 1}
+              </span>
+              <div className="flex flex-col gap-1">
+                <h3 className="text-lg font-semibold text-stone-900">
+                  {step.title}
+                </h3>
+                <p className="leading-7 text-stone-600">{step.body}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
     </main>
   );

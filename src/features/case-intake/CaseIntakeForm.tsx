@@ -105,12 +105,14 @@ export function CaseIntakeForm() {
       >
         <p>
           <strong className="font-semibold">
-            Saving stores this description with your account. Only you can see
-            it.
+            Saving stores this description with your account.
           </strong>{" "}
-          Do not enter Aadhaar, PAN, passport numbers, bank account or IFSC
-          details, OTPs, passwords, or full private documents. If you leave or
-          refresh before saving, the text in this box will be gone. Your
+          Other Aram users cannot see it. It is available only through your
+          signed-in account, while Aram&apos;s infrastructure providers may
+          technically process or access stored data as part of providing the
+          service. Do not enter Aadhaar, PAN, passport numbers, bank account or
+          IFSC details, OTPs, passwords, or full private documents. If you leave
+          or refresh before saving, the text in this box will be gone. Your
           browser, keyboard, operating system, or installed writing tools can
           still process what you type; that happens outside Aram&apos;s control.
         </p>

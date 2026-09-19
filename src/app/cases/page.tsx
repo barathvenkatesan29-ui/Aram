@@ -30,7 +30,8 @@ export default async function CasesPage() {
             Saved descriptions
           </h1>
           <p className="leading-7 text-stone-600">
-            Only you can see these. Open a case to read, change, or delete it.
+            Other Aram users cannot see these. They are available only through
+            your signed-in account. Open a case to read, change, or delete it.
             Later steps are not open yet.
           </p>
         </header>
