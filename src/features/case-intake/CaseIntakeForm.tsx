@@ -1,14 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type FormEvent,
-} from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
 import { LegalInformationNotice } from "@/components/LegalInformationNotice";
+import { createCase } from "@/features/cases/actions";
 import {
   MAX_CASE_DESCRIPTION_LENGTH,
   validateCaseDescription,
@@ -28,28 +22,14 @@ export function CaseIntakeForm() {
   const [validationMessage, setValidationMessage] = useState<string | null>(
     null,
   );
-  const [hasContinued, setHasContinued] = useState(false);
-  const shouldFocusTextareaRef = useRef(false);
+  const [isSaving, setIsSaving] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const confirmationHeadingRef = useRef<HTMLHeadingElement>(null);
 
   const textareaId = useId();
   const guidanceId = useId();
   const privacyId = useId();
   const countId = useId();
   const errorId = useId();
-
-  useEffect(() => {
-    if (hasContinued) {
-      confirmationHeadingRef.current?.focus();
-      return;
-    }
-
-    if (shouldFocusTextareaRef.current) {
-      textareaRef.current?.focus();
-      shouldFocusTextareaRef.current = false;
-    }
-  }, [hasContinued]);
 
   function handleDescriptionChange(value: string) {
     setCaseDescription(value);
@@ -60,7 +40,11 @@ export function CaseIntakeForm() {
     }
   }
 
-  function handleContinue() {
+  async function handleSave() {
+    if (isSaving) {
+      return;
+    }
+
     const result = validateCaseDescription(caseDescription);
 
     if (!result.ok) {
@@ -70,74 +54,21 @@ export function CaseIntakeForm() {
     }
 
     setValidationMessage(null);
-    setHasContinued(true);
+    setIsSaving(true);
+
+    const saveResult = await createCase(caseDescription);
+
+    setIsSaving(false);
+
+    if (!saveResult.ok) {
+      setValidationMessage(saveResult.message);
+      textareaRef.current?.focus();
+    }
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    handleContinue();
-  }
-
-  function handleEdit() {
-    shouldFocusTextareaRef.current = true;
-    setHasContinued(false);
-  }
-
-  function handleWriteDifferentDescription() {
-    shouldFocusTextareaRef.current = true;
-    setCaseDescription("");
-    setValidationMessage(null);
-    setHasContinued(false);
-  }
-
-  if (hasContinued) {
-    return (
-      <div className="flex flex-col gap-10">
-        <header className="flex flex-col gap-4">
-          <p className="text-sm font-medium tracking-wide text-teal-800 uppercase">
-            Starting a case · Step 1
-          </p>
-          <h1
-            ref={confirmationHeadingRef}
-            tabIndex={-1}
-            className="text-3xl font-semibold tracking-tight text-stone-900 outline-none"
-          >
-            This is as far as this step goes
-          </h1>
-          <p className="text-lg leading-8 text-stone-600">
-            Next, Aram would organise the important facts, who appears to be
-            involved, and what information is still missing. That step is not
-            open yet.
-          </p>
-          <p className="leading-7 text-stone-600">
-            Aram does not send or store your case description in this phase. It
-            was not analysed.
-          </p>
-        </header>
-
-        <LegalInformationNotice />
-
-        <div className="flex flex-col items-start gap-3">
-          <button
-            type="button"
-            onClick={handleEdit}
-            className="inline-flex h-12 items-center justify-center rounded-full bg-teal-800 px-6 text-base font-medium text-white hover:bg-teal-900"
-          >
-            Edit what you wrote
-          </button>
-          <button
-            type="button"
-            onClick={handleWriteDifferentDescription}
-            className="text-sm font-medium text-teal-800 hover:text-teal-900"
-          >
-            Write a different description
-          </button>
-          <Link href="/" className="text-sm text-stone-600 hover:text-stone-900">
-            Back to home
-          </Link>
-        </div>
-      </div>
-    );
+    void handleSave();
   }
 
   const describedBy = [
@@ -174,13 +105,14 @@ export function CaseIntakeForm() {
       >
         <p>
           <strong className="font-semibold">
-            Aram does not send or store your case description in this phase.
+            Saving stores this description with your account. Only you can see
+            it.
           </strong>{" "}
           Do not enter Aadhaar, PAN, passport numbers, bank account or IFSC
-          details, OTPs, passwords, or full private documents. If you leave this
-          page or refresh, the text in this box will be gone. Your browser,
-          keyboard, operating system, or installed writing tools can still
-          process what you type; that happens outside Aram&apos;s control.
+          details, OTPs, passwords, or full private documents. If you leave or
+          refresh before saving, the text in this box will be gone. Your
+          browser, keyboard, operating system, or installed writing tools can
+          still process what you type; that happens outside Aram&apos;s control.
         </p>
       </aside>
 
@@ -235,15 +167,15 @@ export function CaseIntakeForm() {
 
         <div className="flex flex-col items-start gap-3">
           <button
-            type="button"
-            onClick={handleContinue}
-            className="inline-flex h-12 items-center justify-center rounded-full bg-teal-800 px-6 text-base font-medium text-white hover:bg-teal-900"
+            type="submit"
+            disabled={isSaving}
+            className="inline-flex h-12 items-center justify-center rounded-full bg-teal-800 px-6 text-base font-medium text-white hover:bg-teal-900 disabled:cursor-not-allowed disabled:bg-stone-400"
           >
-            Continue
+            {isSaving ? "Saving" : "Save this description"}
           </button>
           <p className="text-sm text-stone-500">
-            Continue stays on this device. Aram does not send or store your case
-            description in this phase.
+            Saving stores this description with your account. Later steps are
+            not open yet.
           </p>
         </div>
       </form>

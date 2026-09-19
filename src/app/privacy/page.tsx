@@ -30,10 +30,11 @@ export default function PrivacyPage() {
           in with session cookies on this device.
         </p>
         <p className="leading-7 text-stone-600">
-          After you sign in, you can type a case description. Aram does not send
-          or store your case description in this phase. There is no analytics on
-          these pages. Opening a page still makes an ordinary request to load
-          the website.
+          After you sign in, you can type a case description and save it. Aram
+          stores that description with your account. Only you can see it. There
+          is no analytics on these pages. Opening a page still makes an ordinary
+          request to load the website. Case text does not appear in page
+          addresses.
         </p>
         <p className="leading-7 text-stone-600">
           Your browser, keyboard, operating system, or installed writing tools

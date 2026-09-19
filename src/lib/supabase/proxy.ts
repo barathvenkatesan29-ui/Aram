@@ -1,5 +1,20 @@
+import { getCaseIdFromPathname } from "@/features/cases/parseCaseId";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+
+function getProtectedNextPath(pathname: string): string | null {
+  if (pathname === "/start" || pathname.startsWith("/start/")) {
+    return "/start";
+  }
+
+  const caseId = getCaseIdFromPathname(pathname);
+
+  if (caseId) {
+    return `/cases/${caseId}`;
+  }
+
+  return null;
+}
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -39,15 +54,13 @@ export async function updateSession(request: NextRequest) {
   // createServerClient and getClaims().
   const { data } = await supabase.auth.getClaims();
   const isSignedIn = Boolean(data?.claims);
-  const pathname = request.nextUrl.pathname;
-  const isStartRoute =
-    pathname === "/start" || pathname.startsWith("/start/");
+  const nextPath = getProtectedNextPath(request.nextUrl.pathname);
 
-  if (!isSignedIn && isStartRoute) {
+  if (!isSignedIn && nextPath) {
     const url = request.nextUrl.clone();
     url.pathname = "/sign-in";
     url.search = "";
-    url.searchParams.set("next", "/start");
+    url.searchParams.set("next", nextPath);
 
     const redirectResponse = NextResponse.redirect(url);
 

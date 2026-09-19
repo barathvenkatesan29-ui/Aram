@@ -1,7 +1,13 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import {
+  AUTH_NEXT_COOKIE_NAME,
+  getAuthNextCookieOptions,
+} from "./authNextCookie";
+import { getSafeNextPath } from "./safeNextPath";
 import { validateSignInEmail } from "./validateSignInEmail";
 
 export type SendMagicLinkResult =
@@ -20,6 +26,7 @@ function getAuthCallbackUrl(): string | null {
 
 export async function sendMagicLink(
   email: string,
+  nextPath?: string,
 ): Promise<SendMagicLinkResult> {
   const validation = validateSignInEmail(email);
 
@@ -60,6 +67,13 @@ export async function sendMagicLink(
         "We could not send a sign-in email right now. Wait a minute and try again.",
     };
   }
+
+  const cookieStore = await cookies();
+  cookieStore.set(
+    AUTH_NEXT_COOKIE_NAME,
+    getSafeNextPath(nextPath),
+    getAuthNextCookieOptions(),
+  );
 
   return { ok: true };
 }

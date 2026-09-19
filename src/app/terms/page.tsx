@@ -58,8 +58,8 @@ export default function TermsPage() {
         <h2 className="text-xl font-semibold text-stone-900">This version of the site</h2>
         <p className="leading-7 text-stone-600">
           You can sign in with an email link and describe what happened as the
-          first step of a case. You cannot submit a case for analysis yet. Aram
-          does not send or store your case description in this phase. Using this
+          first step of a case. When you save, Aram stores that description with
+          your account. You cannot submit a case for analysis yet. Using this
           website does not create any duty for Aram to act on your behalf.
         </p>
       </section>

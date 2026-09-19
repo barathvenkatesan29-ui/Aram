@@ -35,7 +35,7 @@ export default async function SignInPage({
 
   return (
     <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-6 py-12">
-      <SignInForm authError={authError} />
+      <SignInForm authError={authError} nextPath={nextPath} />
     </main>
   );
 }

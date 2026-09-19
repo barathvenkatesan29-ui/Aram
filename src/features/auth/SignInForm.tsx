@@ -14,9 +14,10 @@ const RESEND_WAIT_SECONDS = 60;
 
 type SignInFormProps = {
   authError: boolean;
+  nextPath: string;
 };
 
-export function SignInForm({ authError }: SignInFormProps) {
+export function SignInForm({ authError, nextPath }: SignInFormProps) {
   const [email, setEmail] = useState("");
   const [validationMessage, setValidationMessage] = useState<string | null>(
     null,
@@ -64,7 +65,7 @@ export function SignInForm({ authError }: SignInFormProps) {
     setSubmitMessage(null);
     setIsSubmitting(true);
 
-    const result = await sendMagicLink(validation.email);
+    const result = await sendMagicLink(validation.email, nextPath);
 
     setIsSubmitting(false);
 
