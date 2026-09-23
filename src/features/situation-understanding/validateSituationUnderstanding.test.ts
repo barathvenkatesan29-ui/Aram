@@ -354,3 +354,68 @@ test("stored questions reject a gap in position", () => {
 
   assert.equal(result.ok, false);
 });
+
+test("valid orientation_fork metadata is kept and invalid metadata does not fail the understanding", () => {
+  const accepted = validateSituationUnderstanding(
+    validUnderstanding({
+      questions: [
+        {
+          id: QUESTION_ID_EARLIER_UUID,
+          position: 1,
+          question: "Was the deposit meant to be returned when you moved out?",
+          why_it_matters:
+            "Whether return was expected can change what this situation appears to be.",
+          ask_now: true,
+          materiality: "orientation_fork",
+          already_supplied: false,
+          action_mode_only: false,
+          suggested_options: [
+            "Yes, it was to be returned in full",
+            "They said some amount could be deducted",
+            "I'm not sure",
+          ],
+        },
+      ],
+    }),
+    INITIAL_CONTEXT,
+  );
+  const invalidStillValid = validateSituationUnderstanding(
+    validUnderstanding({
+      questions: [
+        {
+          id: QUESTION_ID_EARLIER_UUID,
+          position: 1,
+          question: "Was the deposit meant to be returned when you moved out?",
+          why_it_matters:
+            "Whether return was expected can change what this situation appears to be.",
+          ask_now: true,
+          materiality: "urgent",
+          already_supplied: false,
+          action_mode_only: false,
+        },
+      ],
+    }),
+    INITIAL_CONTEXT,
+  );
+
+  assert.equal(accepted.ok, true);
+  if (accepted.ok) {
+    assert.equal(accepted.understanding.questions[0]?.ask_now, true);
+    assert.equal(
+      accepted.understanding.questions[0]?.materiality,
+      "orientation_fork",
+    );
+    assert.deepEqual(accepted.understanding.questions[0]?.suggested_options, [
+      "Yes, it was to be returned in full",
+      "They said some amount could be deducted",
+      "I'm not sure",
+    ]);
+  }
+  assert.equal(invalidStillValid.ok, true);
+  if (invalidStillValid.ok) {
+    assert.equal(
+      invalidStillValid.understanding.questions[0]?.clarificationMetadataInvalid,
+      true,
+    );
+  }
+});

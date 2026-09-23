@@ -3,6 +3,7 @@ import { test } from "node:test";
 import { resolveProvider } from "./getProvider.ts";
 import { stubProvider } from "./stubProvider.ts";
 import { validateSituationUnderstanding } from "../../features/situation-understanding/validateSituationUnderstanding.ts";
+import { decideOptionalClarification } from "../../features/situation-understanding/decideOptionalClarification.ts";
 
 test("getProvider returns unavailable, not stub, when env is unset", () => {
   const result = resolveProvider({
@@ -69,4 +70,28 @@ test("stub output passes the understanding validator", async () => {
   });
 
   assert.equal(result.ok, true);
+});
+
+test("stub does not emit askable orientation_fork metadata", async () => {
+  const description =
+    "The landlord kept the rental deposit after I moved out of the flat in Pune in March.";
+  const output = await stubProvider.understand({
+    round: "initial",
+    description,
+    answers: [],
+  });
+  const result = validateSituationUnderstanding(output, {
+    round: "initial",
+    description,
+    answers: [],
+  });
+
+  assert.equal(result.ok, true);
+  if (result.ok) {
+    assert.equal(
+      decideOptionalClarification(result.understanding.questions).kind,
+      "zero",
+    );
+    assert.equal(result.understanding.questions.length, 0);
+  }
 });

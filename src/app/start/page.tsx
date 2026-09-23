@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { CaseIntakeForm } from "@/features/case-intake/CaseIntakeForm";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -12,12 +11,8 @@ export default async function StartPage() {
   const { data } = await supabase.auth.getClaims();
 
   if (!data?.claims) {
-    redirect("/sign-in?next=/start");
+    redirect("/sign-in?next=/chat");
   }
 
-  return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-6 py-12">
-      <CaseIntakeForm />
-    </main>
-  );
+  redirect("/chat");
 }

@@ -1,24 +1,42 @@
-import { getCaseIdFromPathname } from "@/features/cases/parseCaseId";
+import { getCaseIdFromPathname, getChatIdFromPathname } from "@/features/cases/parseCaseId";
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 function getProtectedNextPath(pathname: string): string | null {
   if (pathname === "/start" || pathname.startsWith("/start/")) {
-    return "/start";
+    return "/chat";
   }
 
   if (pathname === "/cases" || pathname === "/cases/") {
-    return "/cases";
+    return "/chat";
+  }
+
+  if (pathname === "/chat" || pathname === "/chat/") {
+    return "/chat";
+  }
+
+  if (pathname === "/chat/archived" || pathname.startsWith("/chat/archived/")) {
+    return "/chat/archived";
   }
 
   const caseId = getCaseIdFromPathname(pathname);
 
   if (caseId) {
-    return `/cases/${caseId}`;
+    return `/chat/${caseId}`;
+  }
+
+  const chatId = getChatIdFromPathname(pathname);
+
+  if (chatId) {
+    return `/chat/${chatId}`;
   }
 
   if (pathname.startsWith("/cases/")) {
-    return "/cases";
+    return "/chat";
+  }
+
+  if (pathname.startsWith("/chat/")) {
+    return "/chat";
   }
 
   return null;

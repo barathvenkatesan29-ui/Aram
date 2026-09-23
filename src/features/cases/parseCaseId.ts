@@ -20,3 +20,13 @@ export function getCaseIdFromPathname(pathname: string): string | null {
 
   return parseCaseId(match[1]);
 }
+
+export function getChatIdFromPathname(pathname: string): string | null {
+  const match = /^\/chat\/([^/]+)$/.exec(pathname);
+
+  if (!match) {
+    return null;
+  }
+
+  return parseCaseId(match[1]);
+}

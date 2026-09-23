@@ -13,21 +13,21 @@ export default function Home() {
         </h1>
         <p className="max-w-2xl text-lg leading-8 text-stone-600">
           Aram is a legal information and resolution platform. You describe what
-          happened in ordinary language. This version lets you save that
-          description and come back to it. Later versions are meant to help you
+          happened in ordinary language. This version lets you start a
+          conversation and come back to it. Later versions are meant to help you
           see the important facts, possible rights under Indian law, legal
           boundaries, and a cautious next step — without pretending to be your
           lawyer.
         </p>
         <div className="flex flex-col items-start gap-3">
           <Link
-            href="/start"
+            href="/chat"
             className="inline-flex h-12 items-center justify-center rounded-full bg-teal-800 px-6 text-base font-medium text-white hover:bg-teal-900"
           >
-            Describe what happened
+            New chat
           </Link>
           <p className="text-sm text-stone-500">
-            This opens the first step. Later steps are not built yet.
+            This opens a conversation. Later legal guidance is not built yet.
           </p>
         </div>
       </section>
@@ -53,8 +53,8 @@ export default function Home() {
           What this version does
         </h2>
         <ul className="list-disc space-y-2 pl-5 leading-7 text-stone-600">
-          <li>Describe a problem in your own words</li>
-          <li>Return later and look at your cases</li>
+          <li>Describe a problem in your own words in a conversation</li>
+          <li>Return later and look at your conversations</li>
         </ul>
       </section>
 

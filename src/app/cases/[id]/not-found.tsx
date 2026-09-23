@@ -9,16 +9,16 @@ export default function CaseNotFound() {
         </h1>
         <p className="flex flex-wrap gap-x-5 gap-y-2">
           <Link
-            href="/cases"
+            href="/chat"
             className="text-sm font-medium text-teal-800 hover:text-teal-900"
           >
-            Your cases
+            Your conversations
           </Link>
           <Link
-            href="/start"
+            href="/chat"
             className="text-sm font-medium text-teal-800 hover:text-teal-900"
           >
-            Describe another situation
+            New chat
           </Link>
         </p>
       </div>

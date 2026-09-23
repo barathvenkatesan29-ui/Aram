@@ -19,8 +19,8 @@ export async function SiteHeader() {
       : null;
 
   return (
-    <header className="border-b border-stone-200 bg-white">
-      <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-6 px-6 py-4">
+    <header className="shrink-0 border-b border-stone-200 bg-white">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-4">
         <Link
           href="/"
           className="text-lg font-semibold tracking-tight text-stone-900"
@@ -54,10 +54,10 @@ export async function SiteHeader() {
                 )}
               </p>
               <Link
-                href="/cases"
+                href="/chat"
                 className="text-sm font-medium text-stone-600 hover:text-stone-900"
               >
-                Cases
+                Chat
               </Link>
               <form action={signOut}>
                 <button
@@ -70,17 +70,17 @@ export async function SiteHeader() {
             </div>
           ) : (
             <Link
-              href="/sign-in?next=/start"
+              href="/sign-in?next=/chat"
               className="text-sm font-medium text-stone-600 hover:text-stone-900"
             >
               Sign in
             </Link>
           )}
           <Link
-            href="/start"
+            href="/chat"
             className="inline-flex h-10 items-center justify-center rounded-full bg-teal-800 px-4 text-sm font-medium text-white hover:bg-teal-900"
           >
-            Describe what happened
+            New chat
           </Link>
         </div>
       </div>

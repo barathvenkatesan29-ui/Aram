@@ -50,11 +50,10 @@ export default function HowItWorksPage() {
         </h2>
         <p className="leading-7 text-stone-600">
           You can sign in with an email link. Aram asks only for your email
-          address to create and sign in to your account. You can describe what
-          happened in your own words, save that description, return to your
-          cases, change a description, or permanently delete one. Other Aram
-          users cannot see those saved cases. A case is available only through
-          your signed-in account.
+          address to create and sign in to your account. You can start a
+          conversation in your own words, return to it later, or permanently
+          delete it. Other Aram users cannot see those conversations. A
+          conversation is available only through your signed-in account.
         </p>
       </section>
 
@@ -63,10 +62,10 @@ export default function HowItWorksPage() {
           What this version does not do yet
         </h2>
         <p className="leading-7 text-stone-600">
-          Organising facts, follow-up questions, official legal research, a
-          recommended path, and tracking outcomes are not open yet. Aram does
-          not file anything on your behalf, prepare court documents, or act
-          through software agents.
+          Answering follow-up questions, official legal research, a recommended
+          path, and tracking outcomes are not open yet. Aram does not file
+          anything on your behalf, prepare court documents, or act through
+          software agents.
         </p>
       </section>
 

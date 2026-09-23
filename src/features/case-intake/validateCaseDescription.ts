@@ -1,4 +1,4 @@
-export const MIN_CASE_DESCRIPTION_LENGTH = 50;
+export const MIN_CASE_DESCRIPTION_LENGTH = 1;
 export const MAX_CASE_DESCRIPTION_LENGTH = 8000;
 
 export type CaseDescriptionValidationResult =
@@ -28,8 +28,7 @@ export function validateCaseDescription(
   if (trimmedDescription.length < MIN_CASE_DESCRIPTION_LENGTH) {
     return {
       ok: false,
-      message:
-        "Please add a little more detail so this can be treated as a case description.",
+      message: "Please describe what happened before continuing.",
     };
   }
 

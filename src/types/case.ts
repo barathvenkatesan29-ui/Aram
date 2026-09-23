@@ -1,12 +1,17 @@
 export type CaseRecord = {
   id: string;
   description: string;
+  title: string | null;
   created_at: string;
+  updated_at: string;
 };
 
 export type CaseListItem = {
   id: string;
+  title: string | null;
   created_at: string;
+  updated_at: string;
+  archived_at: string | null;
 };
 
 export type CaseInsert = {

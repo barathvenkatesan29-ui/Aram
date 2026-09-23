@@ -1,8 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function SiteFooter() {
+  const pathname = usePathname();
+
+  if (pathname.startsWith("/chat")) {
+    return null;
+  }
+
   return (
-    <footer className="mt-auto border-t border-stone-200 bg-white">
+    <footer className="shrink-0 border-t border-stone-200 bg-white">
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 px-6 py-6 text-sm text-stone-600 sm:flex-row sm:items-center sm:justify-between">
         <p>Aram — legal information for people in India.</p>
         <nav aria-label="Footer">

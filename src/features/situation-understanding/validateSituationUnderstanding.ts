@@ -22,6 +22,7 @@ export const MAX_SITUATION_THEMES = 10;
 export const MAX_MISSING_INFORMATION = 10;
 export const MAX_UNCERTAINTIES = 10;
 export const MAX_FOLLOW_UP_QUESTIONS = 5;
+export const MAX_SUGGESTED_OPTIONS = 3;
 export const MAX_FIELD_TEXT_LENGTH = 2000;
 
 const URL_PATTERN = /https?:\/\//i;
@@ -114,7 +115,7 @@ export function validateSituationUnderstanding(
 
   const assumptions = readTextItems(
     record.assumptions,
-    parseTextItem,
+    parseAssumption,
     MAX_ASSUMPTIONS,
   );
 
@@ -341,6 +342,39 @@ function parseTextItem(
   return { text };
 }
 
+function parseAssumption(value: unknown): Assumption | null {
+  const item = parseTextItem(value);
+
+  if (item === null) {
+    return null;
+  }
+
+  if (typeof value !== "object" || value === null) {
+    return null;
+  }
+
+  const record = value as { confidence?: unknown; because?: unknown };
+  const assumption: Assumption = { text: item.text };
+
+  if (record.confidence === "high" || record.confidence === "low") {
+    assumption.confidence = record.confidence;
+  }
+
+  if (typeof record.because === "string") {
+    const because = record.because.trim();
+
+    if (
+      because.length > 0 &&
+      because.length <= MAX_FIELD_TEXT_LENGTH &&
+      !containsForbiddenLink(because)
+    ) {
+      assumption.because = because;
+    }
+  }
+
+  return assumption;
+}
+
 function parseSituationTheme(value: unknown): SituationTheme | null {
   const item = parseTextItem(value);
 
@@ -436,6 +470,11 @@ function parseFollowUpQuestion(value: unknown): FollowUpQuestion | null {
     position?: unknown;
     question?: unknown;
     why_it_matters?: unknown;
+    ask_now?: unknown;
+    materiality?: unknown;
+    already_supplied?: unknown;
+    action_mode_only?: unknown;
+    suggested_options?: unknown;
   };
 
   if (typeof record.id !== "string") {
@@ -474,12 +513,124 @@ function parseFollowUpQuestion(value: unknown): FollowUpQuestion | null {
     return null;
   }
 
+  const clarification = parseClarificationMetadata(record);
+  const suggestedOptions = parseSuggestedOptions(record.suggested_options);
+
+  if (clarification === "invalid") {
+    return {
+      id,
+      position: record.position,
+      question,
+      why_it_matters: whyItMatters,
+      clarificationMetadataInvalid: true,
+    };
+  }
+
   return {
     id,
     position: record.position,
     question,
     why_it_matters: whyItMatters,
+    ...clarification,
+    ...(suggestedOptions.length > 0 ? { suggested_options: suggestedOptions } : {}),
   };
+}
+
+function parseClarificationMetadata(record: {
+  ask_now?: unknown;
+  materiality?: unknown;
+  already_supplied?: unknown;
+  action_mode_only?: unknown;
+}):
+  | Pick<
+      FollowUpQuestion,
+      "ask_now" | "materiality" | "already_supplied" | "action_mode_only"
+    >
+  | "invalid"
+  | Record<string, never> {
+  const hasAskNow = record.ask_now !== undefined;
+  const hasMateriality = record.materiality !== undefined;
+  const hasAlreadySupplied = record.already_supplied !== undefined;
+  const hasActionModeOnly = record.action_mode_only !== undefined;
+
+  if (
+    !hasAskNow &&
+    !hasMateriality &&
+    !hasAlreadySupplied &&
+    !hasActionModeOnly
+  ) {
+    return {};
+  }
+
+  if (hasAskNow && typeof record.ask_now !== "boolean") {
+    return "invalid";
+  }
+
+  if (hasAlreadySupplied && typeof record.already_supplied !== "boolean") {
+    return "invalid";
+  }
+
+  if (hasActionModeOnly && typeof record.action_mode_only !== "boolean") {
+    return "invalid";
+  }
+
+  if (
+    hasMateriality &&
+    record.materiality !== "none" &&
+    record.materiality !== "orientation_fork"
+  ) {
+    return "invalid";
+  }
+
+  return {
+    ...(hasAskNow ? { ask_now: record.ask_now === true } : {}),
+    ...(hasMateriality
+      ? {
+          materiality:
+            record.materiality === "orientation_fork"
+              ? "orientation_fork"
+              : "none",
+        }
+      : {}),
+    ...(hasAlreadySupplied
+      ? { already_supplied: record.already_supplied === true }
+      : {}),
+    ...(hasActionModeOnly
+      ? { action_mode_only: record.action_mode_only === true }
+      : {}),
+  };
+}
+
+function parseSuggestedOptions(value: unknown): string[] {
+  if (value === undefined || value === null) {
+    return [];
+  }
+
+  if (!Array.isArray(value) || value.length > MAX_SUGGESTED_OPTIONS) {
+    return [];
+  }
+
+  const options: string[] = [];
+  const seen = new Set<string>();
+
+  for (const item of value) {
+    const option = parseRequiredText(item);
+
+    if (option === null || containsForbiddenLink(option) || containsIdentityRequest(option)) {
+      continue;
+    }
+
+    const key = option.toLowerCase();
+
+    if (seen.has(key)) {
+      continue;
+    }
+
+    seen.add(key);
+    options.push(option);
+  }
+
+  return options;
 }
 
 function parseRequiredText(value: unknown): string | null {

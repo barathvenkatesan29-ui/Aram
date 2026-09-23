@@ -76,8 +76,9 @@ export async function createCase(
     };
   }
 
+  revalidatePath("/chat");
   revalidatePath("/cases");
-  redirect(`/cases/${insertedId}`);
+  redirect(`/chat/${insertedId}`);
 }
 
 export async function updateCase(
@@ -141,6 +142,8 @@ export async function updateCase(
     };
   }
 
+  revalidatePath("/chat");
+  revalidatePath(`/chat/${updatedId}`);
   revalidatePath("/cases");
   revalidatePath(`/cases/${updatedId}`);
   return { ok: true };
@@ -195,6 +198,7 @@ export async function deleteCase(rawCaseId: string): Promise<DeleteCaseResult> {
     };
   }
 
+  revalidatePath("/chat");
   revalidatePath("/cases");
-  redirect("/cases");
+  redirect("/chat");
 }
